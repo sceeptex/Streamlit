@@ -63,14 +63,14 @@ def main():
         num_of_most_common = st.sidebar.number_input("Most Common Tokens", 5, 15)
         if st.button("Analyze"):
 
-            with st.beta_expander("Original Text"):
+            with st.expander("Original Text"):
                 st.write(raw_text)
 
-            with st.beta_expander("Text Analysis"):
+            with st.expander("Text Analysis"):
                 token_result_df = text_analyzer(raw_text)
                 st.dataframe(token_result_df)
 
-            with st.beta_expander("Entities"):
+            with st.expander("Entities"):
                 # entity_result = get_entities(raw_text)
                 # st.write(entity_result)
 
@@ -78,15 +78,15 @@ def main():
                 stc.html(entity_result, height=1000, scrolling=True)
 
             # Layouts
-            col1, col2 = st.beta_columns(2)
+            col1, col2 = st.columns(2)
 
             with col1:
-                with st.beta_expander("Word Stats"):
+                with st.expander("Word Stats"):
                     st.info("Word Statistics")
                     docx = nt.TextFrame(raw_text)
                     st.write(docx.word_stats())
 
-                with st.beta_expander("Top Keywords"):
+                with st.expander("Top Keywords"):
                     st.info("Top Keywords/Tokens")
                     processed_text = nfx.remove_stopwords(raw_text)
                     keywords = get_most_common_tokens(
@@ -94,12 +94,12 @@ def main():
                     )
                     st.write(keywords)
 
-                with st.beta_expander("Sentiment"):
+                with st.expander("Sentiment"):
                     sent_result = get_sentiment(raw_text)
                     st.write(sent_result)
 
             with col2:
-                with st.beta_expander("Plot Word Freq"):
+                with st.expander("Plot Word Freq"):
                     fig = plt.figure()
                     top_keywords = get_most_common_tokens(
                         processed_text, num_of_most_common
@@ -108,7 +108,7 @@ def main():
                     plt.xticks(rotation=45)
                     st.pyplot(fig)
 
-                with st.beta_expander("Plot Part of Speech"):
+                with st.expander("Plot Part of Speech"):
                 	try:
                 		fig = plt.figure()
                 		sns.countplot(token_result_df["PoS"])
@@ -117,13 +117,13 @@ def main():
                 	except:
                 		st.warning("Insufficient Data: Must be more than 2")
 
-                with st.beta_expander("Plot Wordcloud"):
+                with st.expander("Plot Wordcloud"):
                     try:
                     	plot_wordcloud(raw_text)
                     except:
                     	st.warning("Insufficient Data: Must be more than 2")
 
-            with st.beta_expander("Download Text Analysis Results"):
+            with st.expander("Download Text Analysis Results"):
                 make_downloadable(token_result_df)
 
     elif choice == "NLP(files)":
@@ -144,14 +144,14 @@ def main():
                 raw_text = docx2txt.process(text_file)
                 # st.write(raw_text)
 
-            with st.beta_expander("Original Text"):
+            with st.expander("Original Text"):
                 st.write(raw_text)
 
-            with st.beta_expander("Text Analysis"):
+            with st.expander("Text Analysis"):
                 token_result_df = text_analyzer(raw_text)
                 st.dataframe(token_result_df)
 
-            with st.beta_expander("Entities"):
+            with st.expander("Entities"):
                 # entity_result = get_entities(raw_text)
                 # st.write(entity_result)
 
@@ -159,15 +159,15 @@ def main():
                 stc.html(entity_result, height=1000, scrolling=True)
 
             # Layouts
-            col1, col2 = st.beta_columns(2)
+            col1, col2 = st.columns(2)
 
             with col1:
-                with st.beta_expander("Word Stats"):
+                with st.expander("Word Stats"):
                     st.info("Word Statistics")
                     docx = nt.TextFrame(raw_text)
                     st.write(docx.word_stats())
 
-                with st.beta_expander("Top Keywords"):
+                with st.expander("Top Keywords"):
                     st.info("Top Keywords/Tokens")
                     processed_text = nfx.remove_stopwords(raw_text)
                     keywords = get_most_common_tokens(
@@ -175,12 +175,12 @@ def main():
                     )
                     st.write(keywords)
 
-                with st.beta_expander("Sentiment"):
+                with st.expander("Sentiment"):
                     sent_result = get_sentiment(raw_text)
                     st.write(sent_result)
 
             with col2:
-                with st.beta_expander("Plot Word Freq"):
+                with st.expander("Plot Word Freq"):
                     fig = plt.figure()
                     top_keywords = get_most_common_tokens(
                         processed_text, num_of_most_common
@@ -189,7 +189,7 @@ def main():
                     plt.xticks(rotation=45)
                     st.pyplot(fig)
 
-                with st.beta_expander("Plot Part of Speech"):
+                with st.expander("Plot Part of Speech"):
                     try:
 
                         fig = plt.figure()
@@ -199,13 +199,13 @@ def main():
                     except:
                         st.warning("Insufficient Data")
 
-                with st.beta_expander("Plot Wordcloud"):
+                with st.expander("Plot Wordcloud"):
                 	try:
                 		plot_wordcloud(raw_text)
                 	except:
                 		st.warning("Insufficient Data")
 
-            with st.beta_expander("Download Text Analysis Results"):
+            with st.expander("Download Text Analysis Results"):
                 make_downloadable(token_result_df)
 
     else:

@@ -1,6 +1,15 @@
 # Load NLP Pkgs
 import spacy
-nlp = spacy.load('en')
+# nlp = spacy.load('en')
+# nlp = spacy.load("en_core_web_sm")
+# import en_core_web_sm
+# nlp = en_core_web_sm.load()
+
+import en_core_web_sm
+
+nlp = en_core_web_sm.load()
+
+
 from spacy import displacy
 from textblob import TextBlob
 import pandas as pd 

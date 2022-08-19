@@ -19,6 +19,9 @@ from PIL import Image
 import os
 from pathlib import Path
 
+import nltk
+nltk.download("popular")
+
 
 HTML_BANNER = """
     <div style="background-color:#3872fb;padding:10px;border-radius:10px;border-style:ridge;">
@@ -169,18 +172,18 @@ def main():
 		
 		raw_text = st.text_area('Enter Text Here')
 		if len(raw_text) > 2:
-			col1,col2 = st.beta_columns(2)
+			col1,col2 = st.columns(2)
 			process_text = nfx.remove_stopwords(raw_text)
 			with col1:
-				with st.beta_expander('Original Text'):
+				with st.expander('Original Text'):
 					st.write(raw_text)
 
-				with st.beta_expander("Preview Tagged Text"):
+				with st.expander("Preview Tagged Text"):
 					tagged_docx = generate_tags(raw_text)
 					processed_tag_docx = mytag_visualizer(tagged_docx)
 					stc.html(processed_tag_docx,scrolling=True)
 
-				with st.beta_expander("Plot Word Freq"):
+				with st.expander("Plot Word Freq"):
 					st.info("Plot For Most Common Tokens")
 					most_common_tokens = get_most_common_tokens(process_text,20)
 					# st.write(most_common_tokens)
@@ -198,15 +201,15 @@ def main():
 					st.altair_chart(c,use_container_width=True)
 
 			with col2:
-				with st.beta_expander('Processed Text'):
+				with st.expander('Processed Text'):
 					
 					st.write(process_text)
 
-				with st.beta_expander("Plot Wordcloud"):
+				with st.expander("Plot Wordcloud"):
 					st.info("word Cloud")
 					plot_wordcloud(process_text)
 
-				with st.beta_expander("Plot Mendelhall Curve"):
+				with st.expander("Plot Mendelhall Curve"):
 					plot_mendelhall_curve_2(raw_text)
 
 
